@@ -3,7 +3,7 @@
 
 using namespace std;
 #include "Compile.h"
-#include "SimulateComputer.h"
+//#include "SimulateComputer.h"
 /*输入汇编代码所在文件的绝对路径*/
 vector<string> readFile(char* filePath){
     vector<string> readResult;
@@ -29,8 +29,8 @@ int main() {
     vector<string> compileResult;
     result = readFile(filePath);
     compileResult =  compile->getResultOfCompile(result);
-    SimulateComputer* computer = new SimulateComputer();
-    computer->simulateComputer(compileResult);
+//    SimulateComputer* computer = new SimulateComputer();
+//    computer->simulateComputer(compileResult);
 //    vector<string>::iterator iterator;
 //    for(iterator = compileResult.begin(); iterator != compileResult.end();iterator++){
 //        cout<<*iterator;
