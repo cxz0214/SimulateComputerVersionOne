@@ -11,3 +11,21 @@
 - **软件接口**
 
   ![软件接口](https://blog-1259758352.cos.ap-nanjing.myqcloud.com/github/%E6%8E%A5%E5%8F%A3.png)
+
+- **文件目录**
+
+  |--------- main.cpp
+
+  |--------- Compile.h
+
+  |--------- Compile.cpp
+
+  |--------- Decompile.h
+
+  |--------- Decompile.cpp
+
+  |---------  SimulateComputer.h
+
+  |---------  SimulateComputer.cpp 
+
+- 
