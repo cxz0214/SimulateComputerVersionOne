@@ -14,6 +14,24 @@ vector
 string
 -
 
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.cpp
+cstring
+-
+SimulateComputer.h
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.h
+
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.h
+stdio.h
+-
+stdlib.h
+-
+list
+-
+string
+-
+vector
+-
+
 D:/Practice/SimulateComputerVersionOne/main.cpp
 iostream
 -
@@ -21,4 +39,6 @@ cstring
 -
 Compile.h
 D:/Practice/SimulateComputerVersionOne/Compile.h
+SimulateComputer.h
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.h
 

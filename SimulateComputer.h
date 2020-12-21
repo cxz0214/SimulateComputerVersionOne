@@ -9,15 +9,7 @@
 #include <string>
 #include<vector>
 using namespace std;
-/*定义宏来模拟指令的解码*/
-/*IR为指令寄存器*/
-#define REG0 ((IR>>24)&0x07)
-#define REG1 ((IR>>20)&0x0f)
-#define REG2 ((IR>>16)&0x0f)
-#define IMMEDIATE (IR&0xffff)
-#define ADDRESS (IR&0xffffff)
-#define PORT (IR&0xff)
-#define OPCODE ((IR>>27)&0x1f)
+
 /*状态字信息*/
 struct state{
     unsigned short overflow:1;/*判定溢出1为溢出，0为正常*/
@@ -32,40 +24,44 @@ typedef struct scence{
 }sceneOfProgramInterrupt;
 class SimulateComputer{
 private:
-    list<sceneOfProgramInterrupt> interruptScenceList;  /*记录程序调用子函数时的状态*/
+    typedef int (*ops)(void) ;
+    ops opsPtr[32];
+
 public:
-    int HLT(void);
-    int JMP(void);
-    int CJMP(void);
-    int OJMP(void);
-    int CALL(void);
-    int RET(void);
-    int PUSH(void);
-    int POP(void);
-    int LOADB(void);
-    int LOADW(void);
-    int STOREB(void);
-    int STOREW(void);
-    int LOADI(void);
-    int NOP(void);
-    int IN(void);
-    int OUT(void);
-    int ADD(void);
-    int ADDI(void);
-    int SUB(void);
-    int SUBI(void);
-    int MUL(void);
-    int DIV(void);
-    int AND(void);
-    int OR(void);
-    int NOR(void);
-    int NOTB(void);
-    int SAL(void);
-    int SAR(void);
-    int EQU(void);
-    int LT(void);
-    int LTE(void);
-    int NOTC(void);
+
+    SimulateComputer();
+    static int HLT(void);
+    static int JMP(void);
+    static int CJMP(void);
+    static int OJMP(void);
+    static int CALL(void);
+    static int RET(void);
+    static int PUSH(void);
+    static int POP(void);
+    static int LOADB(void);
+    static int LOADW(void);
+    static int STOREB(void);
+    static int STOREW(void);
+    static int LOADI(void);
+    static int NOP(void);
+    static int IN(void);
+    static int OUT(void);
+    static int ADD(void);
+    static int ADDI(void);
+    static int SUB(void);
+    static int SUBI(void);
+    static int MUL(void);
+    static int DIV(void);
+    static int AND(void);
+    static int OR(void);
+    static int NOR(void);
+    static int NOTB(void);
+    static int SAL(void);
+    static int SAR(void);
+    static int EQU(void);
+    static int LT(void);
+    static int LTE(void);
+    static int NOTC(void);
     void simulateComputer(vector<string> binaryCode);
 };
 

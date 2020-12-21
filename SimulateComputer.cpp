@@ -1,13 +1,24 @@
 //
 // Created by Alex on 2020/12/21.
 //
+#include <cstring>
 #include "SimulateComputer.h"
+/*定义宏来模拟指令的解码*/
+/*IR为指令寄存器*/
+#define REG0 ((IR>>24)&0x07)
+#define REG1 ((IR>>20)&0x0f)
+#define REG2 ((IR>>16)&0x0f)
+#define IMMEDIATE (IR&0xffff)
+#define ADDRESS (IR&0xffffff)
+#define PORT (IR&0xff)
+#define OPCODE ((IR>>27)&0x1f)
 /*PC 指令计数器，用来存放下条指令的内存地址*/
 unsigned long *pc,d[300],op[300],num[100],IR;
-
 short generalReg[8];/*8个通用寄存器*/
 int pos=0;/*记录程序运行的位置*/
 int ss[100],x=0;
+list<sceneOfProgramInterrupt> interruptScenceList;  /*记录程序调用子函数时的状态*/
+
 int SimulateComputer::HLT(void) {
     pos++;
     return 0;
@@ -69,113 +80,340 @@ int SimulateComputer::CALL(void) {
 }
 
 int SimulateComputer::RET(void) {
-    return 0;
+     sceneOfProgramInterrupt temp = interruptScenceList.back();
+     pc = (unsigned long*)(op + temp.programLineNumber + 1);
+     pos = temp.programLineNumber + 1;
+     programStateWord = temp.statement;
+     for(int i = 0 ; i < 8; i ++)
+         generalReg[i] = temp.reg[i];
+     interruptScenceList.pop_back();
+     return 1;
 }
 
 int SimulateComputer::PUSH(void) {
-    return 0;
+    if(x>=100)
+    {
+        printf("ERROR:too many numbers\n");
+        exit(0);
+    }
+    if(REG0==0)
+    {
+        printf("ERROR:wrong register\n");
+        exit(0);
+    }
+    x++;
+    ss[x]=generalReg[REG0];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::POP(void) {
-    return 0;
+    if(x==0)
+    {
+        printf("ERROR:too few numbers\n");
+        exit(0);
+    }
+    generalReg[REG0]=ss[x];
+    x--;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::LOADB(void) {
-    return 0;
+    generalReg[REG0]=num[ADDRESS+generalReg[7]-1];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::LOADW(void) {
-    return 0;
+    generalReg[REG0]=num[ADDRESS+generalReg[7]-1]+(num[ADDRESS+generalReg[7]]<<8);
+    pos++;
+    return 1;
 }
-
 int SimulateComputer::STOREB(void) {
-    return 0;
+    num[ADDRESS+generalReg[7]-1]=generalReg[REG0];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::STOREW(void) {
-    return 0;
+    num[ADDRESS + generalReg[7]-1]=generalReg[REG0]&0xff;
+    num[ADDRESS+generalReg[7]]=(generalReg[REG0]>>8)&0xff;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::LOADI(void) {
-    return 0;
+    generalReg[REG0]=IMMEDIATE;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::NOP(void) {
-    return 0;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::IN(void) {
-    return 0;
+    scanf("%hd",&generalReg[REG0]);
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::OUT(void) {
-    return 0;
+    printf("%c",generalReg[REG0]&(0xff));
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::ADD(void) {
-    return 0;
+    long int a,b,c;
+    b=generalReg[REG1];
+    c=generalReg[REG2];
+    generalReg[REG0]=generalReg[REG1]+generalReg[REG2];
+    a=generalReg[REG0];
+    if((b+c)!=a){
+       programStateWord.overflow=1;
+    }
+    else{
+        programStateWord.overflow=0;
+    }
+
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::ADDI(void) {
-    return 0;
+    int k;
+    long int a,b,c;
+    b=generalReg[REG0];
+    c=IMMEDIATE;
+    k=generalReg[REG0]+IMMEDIATE;
+    a=k;
+    if((b+c)!=a){
+        programStateWord.overflow=1;
+    }else{
+        programStateWord.overflow=0;
+    }
+
+    generalReg[REG0]=k;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::SUB(void) {
-    return 0;
+    long int a,b,c;
+    b=generalReg[REG1];
+    c=generalReg[REG2];
+    generalReg[REG0]=generalReg[REG1]-generalReg[REG2];
+    a=generalReg[REG0];
+    if((b-c)!=a){
+        programStateWord.overflow=1;
+    }else{
+        programStateWord.overflow=0;
+    }
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::SUBI(void) {
-    return 0;
+    int k;
+    long int a,b,c;
+    b=generalReg[REG0];
+    c=IMMEDIATE;
+    k=generalReg[REG0]-IMMEDIATE;
+    a=k;
+    if((b-c)!=a){
+        programStateWord.overflow=1;
+    }else{
+        programStateWord.overflow=0;
+    }
+    generalReg[REG0]=k;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::MUL(void) {
-    return 0;
+    long int a,b,c;
+    b=generalReg[REG1];
+    c=generalReg[REG2];
+    generalReg[REG0]=generalReg[REG1]*generalReg[REG2];
+    a=generalReg[REG0];
+    if((b*c)!=a){
+        programStateWord.overflow=1;
+    }else{
+        programStateWord.overflow=0;
+    }
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::DIV(void) {
-    return 0;
+    long int a,b,c;
+    if(generalReg[REG2]==0)
+    {
+        printf("WRONG NUMBER\n");
+        exit(0);
+    }
+    b=generalReg[REG1];
+    c=generalReg[REG2];
+    generalReg[REG0]=generalReg[REG1]/generalReg[REG2];
+    a=generalReg[REG0];
+    if((b/c)!=a){
+        programStateWord.overflow=1;
+    }else {
+        programStateWord.overflow=0;
+    }
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::AND(void) {
-    return 0;
+    generalReg[REG0]=generalReg[REG1]&generalReg[REG2];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::OR(void) {
-    return 0;
+    generalReg[REG0]=generalReg[REG1]|generalReg[REG2];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::NOR(void) {
-    return 0;
+    generalReg[REG0]=generalReg[REG1]^generalReg[REG2];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::NOTB(void) {
-    return 0;
+    generalReg[REG0]=~generalReg[REG1];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::SAL(void) {
-    return 0;
+    generalReg[REG0]=generalReg[REG1]<<generalReg[REG2];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::SAR(void) {
-    return 0;
+    generalReg[REG0]=generalReg[REG1]>>generalReg[REG2];
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::EQU(void) {
-    return 0;
+    if(generalReg[REG0]==generalReg[REG1]) {
+        programStateWord.compare=1;
+    }else{
+        programStateWord.compare=0;
+    }
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::LT(void) {
-    return 0;
+    if(generalReg[REG0]<generalReg[REG1])
+        programStateWord.compare=1;
+    else
+        programStateWord.compare=0;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::LTE(void) {
-    return 0;
+    if(generalReg[REG0]<=generalReg[REG1])
+        programStateWord.compare=1;
+    else
+        programStateWord.compare=0;
+    pos++;
+    return 1;
 }
 
 int SimulateComputer::NOTC(void) {
-    return 0;
+    if(programStateWord.compare==1){
+        programStateWord.compare=0;
+    }else {
+        programStateWord.compare=1;
+    }
+    pos++;
+    return 1;
 }
 
 void SimulateComputer::simulateComputer(vector<string> binaryCode) {
-
+    char a_line[200];
+    int ret=1,m,i=0,j,y=0,amount;
+    pc=d;
+    vector<string>::iterator binaryCodeIterator;
+    for(binaryCodeIterator = binaryCode.begin(); binaryCodeIterator != binaryCode.end();binaryCodeIterator++){
+        strcpy(a_line,binaryCodeIterator->c_str());
+        sscanf(a_line,"%li",&pc[i++]);
+        op[i-1] = pc[i-1];
+    }
+    amount=op[i-2];
+    if(amount!=0)
+    {
+        if(amount%4==0)
+        {
+            j=i-amount/4-2;
+            amount=amount/4;
+        }
+        else
+        {
+            j=i-amount/4-1;
+            amount=amount/4+1;
+        }
+        for(m=0;m<amount;m++,j++)
+        {
+            num[y++]=op[j]&0xff;
+            num[y++]=(op[j]>>8)&0xff;
+            num[y++]=(op[j]>>16)&0xff;
+            num[y++]=(op[j]>>24)&0xff;
+        }
+    }
+    while(ret)
+    {
+        IR=*pc;
+        pc++;
+        ret=(*opsPtr[OPCODE])();
+    }
+    return;
 }
+
+SimulateComputer::SimulateComputer() {
+    opsPtr[0] = HLT;
+    opsPtr[1] = JMP;
+    opsPtr[2] = CJMP;
+    opsPtr[3] = OJMP;
+    opsPtr[4] = CALL;
+    opsPtr[5] = RET;
+    opsPtr[6] = PUSH;
+    opsPtr[7] = POP;
+    opsPtr[8] = LOADB;
+    opsPtr[9] = LOADW;
+    opsPtr[10] = STOREB;
+    opsPtr[11] = STOREW;
+    opsPtr[12] = LOADI;
+    opsPtr[13] = NOP;
+    opsPtr[14] = IN;
+    opsPtr[15] = OUT;
+    opsPtr[16] = ADD;
+    opsPtr[17] = ADDI;
+    opsPtr[18] = SUB;
+    opsPtr[19] = SUBI;
+    opsPtr[20] = MUL;
+    opsPtr[21] = DIV;
+    opsPtr[22] = AND;
+    opsPtr[23] = OR;
+    opsPtr[24] = NOR;
+    opsPtr[25] = NOTB;
+    opsPtr[26] = SAL;
+    opsPtr[27] = SAR;
+    opsPtr[28] = EQU;
+    opsPtr[29] = LT;
+    opsPtr[30] = LTE;
+    opsPtr[31] = NOTC;
+}
+
