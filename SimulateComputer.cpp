@@ -2,25 +2,70 @@
 // Created by Alex on 2020/12/21.
 //
 #include "SimulateComputer.h"
+/*PC 指令计数器，用来存放下条指令的内存地址*/
+unsigned long *pc,d[300],op[300],num[100],IR;
 
+short generalReg[8];/*8个通用寄存器*/
+int pos=0;/*记录程序运行的位置*/
+int ss[100],x=0;
 int SimulateComputer::HLT(void) {
+    pos++;
     return 0;
 }
 
 int SimulateComputer::JMP(void) {
-    return 0;
+    pos=ADDRESS/4;
+    pc=(unsigned long *)(op+ADDRESS/4);
+    return 1;
 }
 
 int SimulateComputer::CJMP(void) {
-    return 0;
+    if(programStateWord.compare)
+    {
+        pos=ADDRESS/4;
+        pc=(unsigned long *)(op+ADDRESS/4);
+    }
+    else {
+        pos++;
+    }
+    return 1;
 }
 
 int SimulateComputer::OJMP(void) {
-    return 0;
+    if(programStateWord.overflow)
+    {
+        pos=ADDRESS/4;
+        pc=(unsigned long *)(op+ADDRESS/4);
+    }
+    else {
+        pos++;
+    }
+
+    return 1;
 }
 
 int SimulateComputer::CALL(void) {
-    return 0;
+    if(interruptScenceList.empty())
+    {
+        sceneOfProgramInterrupt * newScene = (sceneOfProgramInterrupt*)malloc(sizeof(sceneOfProgramInterrupt));
+        newScene->programLineNumber = pos;
+        for(int i = 0 ; i < 8;i++)
+            newScene->reg[i] = generalReg[i];
+        newScene->statement = programStateWord;
+        interruptScenceList.push_back(*newScene);
+    }
+    else
+    {
+        sceneOfProgramInterrupt * newScene = (sceneOfProgramInterrupt*)malloc(sizeof(sceneOfProgramInterrupt));
+        newScene->programLineNumber = pos;
+        newScene->statement = programStateWord;
+        for(int i = 0 ; i < 8; i ++)
+            newScene->reg[i] = generalReg[i];
+        interruptScenceList.push_back(*newScene);
+    }
+    pos=ADDRESS/4;
+    pc=(unsigned long *)(op+ADDRESS/4);
+    return 1;
 }
 
 int SimulateComputer::RET(void) {
