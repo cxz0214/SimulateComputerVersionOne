@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Practice/SimulateComputerVersionOne/Compile.cpp" "D:/Practice/SimulateComputerVersionOne/cmake-build-debug/CMakeFiles/SimulateComputerVersionOne.dir/Compile.cpp.obj"
+  "D:/Practice/SimulateComputerVersionOne/SimulateComputer.cpp" "D:/Practice/SimulateComputerVersionOne/cmake-build-debug/CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.obj"
   "D:/Practice/SimulateComputerVersionOne/main.cpp" "D:/Practice/SimulateComputerVersionOne/cmake-build-debug/CMakeFiles/SimulateComputerVersionOne.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SimulateComputerVersionOne.dir/Compile.cpp.obj"
+  "CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.obj"
   "CMakeFiles/SimulateComputerVersionOne.dir/main.cpp.obj"
   "SimulateComputerVersionOne.exe"
   "SimulateComputerVersionOne.exe.manifest"

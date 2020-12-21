@@ -169,6 +169,33 @@ Compile.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/Compile.cpp.s
 .PHONY : Compile.cpp.s
 
+SimulateComputer.obj: SimulateComputer.cpp.obj
+
+.PHONY : SimulateComputer.obj
+
+# target to build an object file
+SimulateComputer.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.obj
+.PHONY : SimulateComputer.cpp.obj
+
+SimulateComputer.i: SimulateComputer.cpp.i
+
+.PHONY : SimulateComputer.i
+
+# target to preprocess a source file
+SimulateComputer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.i
+.PHONY : SimulateComputer.cpp.i
+
+SimulateComputer.s: SimulateComputer.cpp.s
+
+.PHONY : SimulateComputer.s
+
+# target to generate assembly for a file
+SimulateComputer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.s
+.PHONY : SimulateComputer.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -208,6 +235,9 @@ help:
 	@echo ... Compile.obj
 	@echo ... Compile.i
 	@echo ... Compile.s
+	@echo ... SimulateComputer.obj
+	@echo ... SimulateComputer.i
+	@echo ... SimulateComputer.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
