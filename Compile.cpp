@@ -363,6 +363,6 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
         sprintf(str,"0x%08lx\n",transferInstructToCode(a_line,op_num));
         resultOfCompile.push_back(str);
     }
-	resultOfCompile.push_back("0x00000000")；
+	resultOfCompile.push_back("0x00000000");
     return resultOfCompile;
 }
