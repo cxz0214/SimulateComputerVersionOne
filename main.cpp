@@ -14,10 +14,10 @@ vector<string> readFile(char* filePath){
     }
     while(!feof(pFileInput)){
         fgets(temp,200,pFileInput);
-        if(strchr(temp,'#') != NULL)
-            continue;
-        else
-            readResult.push_back(temp);
+//        if(strchr(temp,'#') != NULL)
+//            continue;
+//        else
+        readResult.push_back(temp);
     }
     return readResult;
 

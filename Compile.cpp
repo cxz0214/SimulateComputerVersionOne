@@ -8,6 +8,8 @@
 #include <list>
 #include "Compile.h"
 using namespace std;
+/*指令集助记符*/
+#define INSTRUCTSET { "HLT", "JMP", "CJMP", "OJMP", "CALL", "RET","PUSH", "POP", "LOADB", "LOADW","STOREB", "STOREW","LOADI", "NOP", "IN", "OUT", "ADD", "ADDI", "SUB","SUBI","MUL", "DIV", "AND", "OR", "NOR", "NOTB","SAL", "SAR","EQU", "LT", "LTE", "NOTC"}
 const char* instructSet[] = INSTRUCTSET;
 /*32条指令对应的指令编码格式，编号1-8代表8中指令编码格式*/
 /******************************************************************************
@@ -26,7 +28,7 @@ int Compile::getNumberOfReg(char *instructLine, char *regName) {
     int regNumber;
     if(tolower(*regName) == 'z')
     {
-        regName = 0;
+        regNumber = 0;
     }
     else if((tolower(*regName) >= 'a') && (tolower(*regName) <= 'g'))
     {
@@ -295,13 +297,16 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
     vector<string>::iterator assembleCodeIterator;
     for(assembleCodeIterator = assembleCode.begin(); assembleCodeIterator != assembleCode.end();assembleCodeIterator++){
         strcpy(a_line, assembleCodeIterator->c_str());
+        if((pcpos = strchr(a_line,'#')) != NULL)
+            *pcpos = '\0';
         n = sscanf(a_line,"%s",op_sym);
         if(n < 1)
             continue;
-        if(strchr(a_line,':') != NULL){
+        if((pcpos = strchr(a_line,':'))!= NULL){
             sscanf(a_line,"%[^:]",biaohao_temp);
+            printf("%s\n",biaohao_temp);
             saveMarkNumberInfo(biaohao_temp,line_num);
-        }else if(strstr(a_line,"WORD") != NULL){
+        }else if((pcpos = strstr(a_line,"WORD")) != NULL){
             sscanf(a_line,"%*s %s",varstring);
             type = 2;
             if((pcpos = strchr(varstring, '[')) != NULL) /*若变量为数组格式*/{
@@ -315,7 +320,7 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
             offset += 2 * var_size;
             line_num--;
         }
-        else if(strstr(a_line,"BYTE") != NULL){
+        else if((pcpos = strstr(a_line,"BYTE")) != NULL){
             sscanf(a_line,"%*s %s",varstring);
             type = 1;
             if((pcpos = strchr(varstring, '[')) != NULL) /*若变量为数组格式*/{
@@ -334,6 +339,8 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
     /*第二次读源文件，处理32个指令助记符*/
     for(assembleCodeIterator = assembleCode.begin(); assembleCodeIterator != assembleCode.end();assembleCodeIterator++){
         strcpy(a_line,assembleCodeIterator->c_str());
+        if((pcpos = strchr(a_line,'#')) != NULL)
+            *pcpos = '\0';
         if(strstr(a_line,"WORD") != NULL || strstr(a_line,"BYTE") != NULL)
             continue;
         else if(strchr(a_line,':') != NULL){

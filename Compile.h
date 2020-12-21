@@ -8,11 +8,7 @@
 #include <string>
 using namespace std;
 #define INS_COUNT 32
-/*指令集助记符*/
-#define INSTRUCTSET { "HLT", "JMP", "CJMP", "OJMP", "CALL", "RET","PUSH", "POP", "LOADB", \
-                      "LOADW","STOREB", "STOREW","LOADI", "NOP", "IN", "OUT", "ADD", "ADDI", \
-                      "SUB","SUBI","MUL", "DIV", "AND", "OR", "NOR", "NOTB","SAL", "SAR", \
-                      "EQU", "LT", "LTE", "NOTC"}
+
 /*标号信息*/
 typedef struct marknumber{
     char name[30];

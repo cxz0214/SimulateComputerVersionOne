@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+D:/Practice/SimulateComputerVersionOne/Compile.cpp
+cctype
+-
+cstdio
+-
+cstdlib
+-
+cstring
+-
+list
+-
+Compile.h
+D:/Practice/SimulateComputerVersionOne/Compile.h
+
 D:/Practice/SimulateComputerVersionOne/Compile.h
 list
 -
@@ -13,12 +27,4 @@ vector
 -
 string
 -
-
-D:/Practice/SimulateComputerVersionOne/main.cpp
-iostream
--
-cstring
--
-Compile.h
-D:/Practice/SimulateComputerVersionOne/Compile.h
 
