@@ -20,7 +20,7 @@ const char* instructSet[] = INSTRUCTSET;
  *  5:   操作码 (5bit) + reg0(3bit) + fill(8bit) + immediate(16bit)           *
  *  6:   操作码 (5bit) + reg0(3bit) + fill(16bit) + port(8bit)                *
  *  7:   操作码 (5bit) + reg0(3bit) + reg1(4bit) + reg2(4bit) + fill(16bit)   *
- *  8:   操作码 (5bit) + reg0(3bit) + reg1(4bit) + reg2(4bit) + fill(16bit)   *
+ *  8:   操作码 (5bit) + reg0(3bit) + reg1(4bit) + fill(20bit)                *
  ******************************************************************************/
 const char instructFormat[33] = "12222133444451667575777778778881";
 /*通过寄存器名获取寄存器编号*/
@@ -169,7 +169,7 @@ unsigned long Compile::transferInstructToCode(char *instructLine, int instructCo
             break;
 
         }
-        case '8':/*类型op(5b)+reg0(3b)+reg1(4b)+reg2(4b)+padding(16b)*/
+        case '8':/*类型op(5b)+reg0(3b)+reg1(4b) + padding(20b)*/
         {
             n = sscanf(instructLine, "%s%s%s", op_sym, reg0, reg1);
             if(n < 3)

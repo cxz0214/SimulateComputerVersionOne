@@ -8,7 +8,6 @@
 #include <string>
 using namespace std;
 #define INS_COUNT 32
-
 /*标号信息*/
 typedef struct marknumber{
     char name[30];
