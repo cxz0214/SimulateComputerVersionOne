@@ -13,7 +13,9 @@ vector<string> readFile(char* filePath){
         exit(0);
     }
     while(!feof(pFileInput)){
-        fgets(temp,200,pFileInput);
+
+        if(fgets(temp,200,pFileInput)==NULL)
+			break;
 //        if(strchr(temp,'#') != NULL)
 //            continue;
 //        else
