@@ -1,0 +1,3 @@
+D:/Practice/SimulateComputerVersionOne/cmake-build-debug/CMakeFiles/SimulateComputerVersionOne.dir
+D:/Practice/SimulateComputerVersionOne/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Practice/SimulateComputerVersionOne/cmake-build-debug/CMakeFiles/rebuild_cache.dir
