@@ -3,6 +3,7 @@
 
 using namespace std;
 #include "Compile.h"
+/*输入汇编代码所在文件的绝对路径*/
 vector<string> readFile(char* filePath){
     vector<string> readResult;
     char temp[200];

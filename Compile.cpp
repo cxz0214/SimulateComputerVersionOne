@@ -208,18 +208,10 @@ int Compile::saveVariableInfo(char *instructLine, int offset, int size, int type
 
     for(variableInfoIterator = variableInfoList.begin(); variableInfoIterator != variableInfoList.end() ; variableInfoIterator++);
     variable*  newVariable = (variable*)malloc(sizeof(variable));
-
-//    var *pnew = (var *)malloc(sizeof(var));
-//    p1->next = pnew;
     newVariable->offset = offset;
-//    pnew->pianyi = pianyi; /*偏移量*/
     newVariable->size = size;
-//    pnew->size = size; /*变量存值多少个*/
     newVariable->type = type;
-//    pnew->zijie = zijie; /*字节为1或2分别为byte型及word型数据*/
-
     strcpy(newVariable->name, varname_temp); /*变量名称*/
-
     /*以下对变量的赋值进行处理*/
     for(i = 0; i < size; i++)
     {
@@ -300,7 +292,6 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
     int offset = 0;
     int n;
     int line_num = 0; /*存代码当前的行数*/
-
     vector<string>::iterator assembleCodeIterator;
     for(assembleCodeIterator = assembleCode.begin(); assembleCodeIterator != assembleCode.end();assembleCodeIterator++){
         strcpy(a_line, assembleCodeIterator->c_str());

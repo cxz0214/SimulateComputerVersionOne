@@ -3,4 +3,4 @@ project(SimulateComputerVersionOne)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(SimulateComputerVersionOne main.cpp Compile.cpp Compile.h)
+add_executable(SimulateComputerVersionOne main.cpp Compile.cpp Compile.h SimulateComputer.h)
