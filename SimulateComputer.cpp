@@ -12,6 +12,18 @@
 #define ADDRESS (IR&0xffffff)
 #define PORT (IR&0xff)
 #define OPCODE ((IR>>27)&0x1f)
+/*状态字信息*/
+struct state{
+    unsigned short overflow:1;/*判定溢出1为溢出，0为正常*/
+    unsigned short compare:1;/*比较大小，1为真，0为假*/
+    unsigned short reserve:14;/*无实际意义*/
+}programStateWord;
+/*调用子函数时保存当前程序执行的状态*/
+typedef struct scence{
+    struct state statement; /*记录字段结构*/
+    short reg[8]; /*记录寄存器值*/
+    unsigned long programLineNumber; /*记录当前执行到的行数*/
+}sceneOfProgramInterrupt;
 /*PC 指令计数器，用来存放下条指令的内存地址*/
 unsigned long *pc,d[300],op[300],num[100],IR;
 short generalReg[8];/*8个通用寄存器*/
@@ -23,13 +35,11 @@ int SimulateComputer::HLT(void) {
     pos++;
     return 0;
 }
-
 int SimulateComputer::JMP(void) {
     pos=ADDRESS/4;
     pc=(unsigned long *)(op+ADDRESS/4);
     return 1;
 }
-
 int SimulateComputer::CJMP(void) {
     if(programStateWord.compare)
     {

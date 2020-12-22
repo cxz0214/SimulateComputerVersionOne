@@ -10,18 +10,7 @@
 #include<vector>
 using namespace std;
 
-/*状态字信息*/
-struct state{
-    unsigned short overflow:1;/*判定溢出1为溢出，0为正常*/
-    unsigned short compare:1;/*比较大小，1为真，0为假*/
-    unsigned short reserve:14;/*无实际意义*/
-}programStateWord;
-/*调用子函数时保存当前程序执行的状态*/
-typedef struct scence{
-    struct state statement; /*记录字段结构*/
-    short reg[8]; /*记录寄存器值*/
-    unsigned long programLineNumber; /*记录当前执行到的行数*/
-}sceneOfProgramInterrupt;
+
 class SimulateComputer{
 private:
     typedef int (*ops)(void) ;
