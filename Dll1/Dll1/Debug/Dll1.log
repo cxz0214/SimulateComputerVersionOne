@@ -1,0 +1,4 @@
+﻿  SimulateComputer.cpp
+d:\gitku\simulatecomputerversionone\dll1\dll1\simulatecomputer.cpp(134): warning C4244: “=”: 从“unsigned long”转换到“short”，可能丢失数据
+d:\gitku\simulatecomputerversionone\dll1\dll1\simulatecomputer.cpp(140): warning C4244: “=”: 从“unsigned long”转换到“short”，可能丢失数据
+  Dll1.vcxproj -> D:\GitKU\SimulateComputerVersionOne\Dll1\Debug\Dll1.dll
