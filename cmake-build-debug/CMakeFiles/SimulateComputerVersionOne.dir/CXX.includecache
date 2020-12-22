@@ -6,19 +6,21 @@
 
 #IncludeRegexTransform: 
 
-D:/Practice/SimulateComputerVersionOne/Compile.h
-list
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.cpp
+cstring
 -
-vector
+SimulateComputer.h
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.h
+
+D:/Practice/SimulateComputerVersionOne/SimulateComputer.h
+stdio.h
+-
+stdlib.h
+-
+list
 -
 string
 -
-
-D:/Practice/SimulateComputerVersionOne/main.cpp
-iostream
+vector
 -
-cstring
--
-Compile.h
-D:/Practice/SimulateComputerVersionOne/Compile.h
 

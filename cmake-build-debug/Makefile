@@ -169,6 +169,33 @@ Compile.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/Compile.cpp.s
 .PHONY : Compile.cpp.s
 
+Decompile.obj: Decompile.cpp.obj
+
+.PHONY : Decompile.obj
+
+# target to build an object file
+Decompile.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/Decompile.cpp.obj
+.PHONY : Decompile.cpp.obj
+
+Decompile.i: Decompile.cpp.i
+
+.PHONY : Decompile.i
+
+# target to preprocess a source file
+Decompile.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/Decompile.cpp.i
+.PHONY : Decompile.cpp.i
+
+Decompile.s: Decompile.cpp.s
+
+.PHONY : Decompile.s
+
+# target to generate assembly for a file
+Decompile.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\SimulateComputerVersionOne.dir\build.make CMakeFiles/SimulateComputerVersionOne.dir/Decompile.cpp.s
+.PHONY : Decompile.cpp.s
+
 SimulateComputer.obj: SimulateComputer.cpp.obj
 
 .PHONY : SimulateComputer.obj
@@ -235,6 +262,9 @@ help:
 	@echo ... Compile.obj
 	@echo ... Compile.i
 	@echo ... Compile.s
+	@echo ... Decompile.obj
+	@echo ... Decompile.i
+	@echo ... Decompile.s
 	@echo ... SimulateComputer.obj
 	@echo ... SimulateComputer.i
 	@echo ... SimulateComputer.s

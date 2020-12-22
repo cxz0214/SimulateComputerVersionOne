@@ -197,7 +197,6 @@ int Compile::getOperatorCodeOfInstruct(const char *opString) {
 }
 /*保存变量信息*/
 int Compile::saveVariableInfo(char *instructLine, int offset, int size, int type) {
-//    var *p1;
     list<variable>::iterator variableInfoIterator;
     short value1;
     char *p = NULL;
@@ -217,7 +216,6 @@ int Compile::saveVariableInfo(char *instructLine, int offset, int size, int type
     /*以下对变量的赋值进行处理*/
     for(i = 0; i < size; i++)
     {
-//        pnew->value[i] = 0;
         newVariable->value[i] = 0;
     }
     if(p == strchr(instructLine,'='))
@@ -304,7 +302,6 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
             continue;
         if((pcpos = strchr(a_line,':'))!= NULL){
             sscanf(a_line,"%[^:]",biaohao_temp);
-            printf("%s\n",biaohao_temp);
             saveMarkNumberInfo(biaohao_temp,line_num);
         }else if((pcpos = strstr(a_line,"WORD")) != NULL){
             sscanf(a_line,"%*s %s",varstring);
@@ -358,7 +355,6 @@ vector<string> Compile::getResultOfCompile(vector<string> assembleCode) {
             printf("ERROR: %s is a invalid instruction! \n", a_line);
             exit(-1);
         }
-        //printf("0x%08lx\n", transferInstructToCode(a_line,op_num));
         char str[50];
         sprintf(str,"0x%08lx\n",transferInstructToCode(a_line,op_num));
         resultOfCompile.push_back(str);

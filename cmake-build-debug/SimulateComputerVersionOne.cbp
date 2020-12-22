@@ -86,6 +86,12 @@
 		<Unit filename="D:/Practice/SimulateComputerVersionOne/Compile.h">
 			<Option target="SimulateComputerVersionOne"/>
 		</Unit>
+		<Unit filename="D:/Practice/SimulateComputerVersionOne/Decompile.cpp">
+			<Option target="SimulateComputerVersionOne"/>
+		</Unit>
+		<Unit filename="D:/Practice/SimulateComputerVersionOne/Decompile.h">
+			<Option target="SimulateComputerVersionOne"/>
+		</Unit>
 		<Unit filename="D:/Practice/SimulateComputerVersionOne/SimulateComputer.cpp">
 			<Option target="SimulateComputerVersionOne"/>
 		</Unit>

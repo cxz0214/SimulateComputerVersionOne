@@ -4,9 +4,14 @@
 CMakeFiles/SimulateComputerVersionOne.dir/Compile.cpp.obj: ../Compile.cpp
 CMakeFiles/SimulateComputerVersionOne.dir/Compile.cpp.obj: ../Compile.h
 
+CMakeFiles/SimulateComputerVersionOne.dir/Decompile.cpp.obj: ../Decompile.cpp
+CMakeFiles/SimulateComputerVersionOne.dir/Decompile.cpp.obj: ../Decompile.h
+
 CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.obj: ../SimulateComputer.cpp
 CMakeFiles/SimulateComputerVersionOne.dir/SimulateComputer.cpp.obj: ../SimulateComputer.h
 
 CMakeFiles/SimulateComputerVersionOne.dir/main.cpp.obj: ../Compile.h
+CMakeFiles/SimulateComputerVersionOne.dir/main.cpp.obj: ../Decompile.h
+CMakeFiles/SimulateComputerVersionOne.dir/main.cpp.obj: ../SimulateComputer.h
 CMakeFiles/SimulateComputerVersionOne.dir/main.cpp.obj: ../main.cpp
 
