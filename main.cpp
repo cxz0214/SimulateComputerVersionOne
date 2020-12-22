@@ -5,7 +5,7 @@ using namespace std;
 #include "Compile.h"
 #include "SimulateComputer.h"
 #include "Decompile.h"
-/*杈撳叆姹囩紪浠ｇ爜鎵�鍦ㄦ枃浠剁殑缁濆璺緞*/
+/*输入汇编代码所在文件的绝对路径*/
 vector<string> readFile(char* filePath){
     vector<string> readResult;
     char temp[200];
@@ -26,19 +26,29 @@ vector<string> readFile(char* filePath){
 int main() {
     Compile* compile = new Compile();
     char filePath[] = "D:\\Practice\\Compile\\cmake-build-debug\\sum.txt";
+    vector<string>::iterator iterator;
     vector<string> result;
     vector<string> compileResult;
     result = readFile(filePath);
     compileResult =  compile->getResultOfCompile(result);
-
+    cout<<"读入的汇编文件为：\n";
+    for(iterator = result.begin(); iterator != result.end();iterator++){
+        cout<<*iterator;
+    }
+    cout<<"---------------------------------------------------"<<endl;
+    cout<<"汇编器执行的结果为："<<endl;
+    for(iterator = compileResult.begin(); iterator != compileResult.end();iterator++){
+        cout<<*iterator;
+    }
+    cout<<endl;
+    cout<<"";
     SimulateComputer* computer = new SimulateComputer();
     computer->simulateComputer(compileResult);
+    cout<<"反汇编执行结果："<<endl;
     Decompile* decompile = new Decompile();
     result = decompile->getResultOfDecompile(compileResult);
-    vector<string>::iterator iterator;
     for(iterator = result.begin(); iterator != result.end();iterator++){
         cout<<*iterator<<endl;
     }
-
     return 0;
 }

@@ -376,16 +376,9 @@ vector<string> Decompile::getResultOfDecompile(vector<string> binaryCode) {
     // 汇编指令集
     vector<string> assIns;
     initAssembleInstructions(assIns);
-
-
     // 汇编指令到二进制的映射
     map<BinIns, string> binToAss;
     InitBinaryToAssemble(assIns, binToAss);
-
-//    //vector<string> binaryCode; // 保存读入的二进制指令
-//    //read_file(binaryCode);
-//    cout << endl;
-//    cout << endl;
     binaryCode = xtoBinary(binaryCode);
 
 
